@@ -7,7 +7,7 @@ const Catalogue = require('../models/Catalogue.model')
 router.post('/:catalogueId/lastpage', (req,res,next) => {
     const { catalogueId } = req.params
 
-    LastPage.create({products: [], commission: 0, catalogueId})
+    LastPage.create({products: [], stockistId: null, catalogueId})
     .then((newPage) => {
         return Catalogue.findByIdAndUpdate(catalogueId, { report: newPage._id }) 
     })

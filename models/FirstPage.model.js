@@ -3,8 +3,8 @@ const { Schema, model } = require("mongoose");
 const firstPageSchema = new Schema(
   {
     image: String,
-    title: String, //user.name
-    logo: String,  //user.logo
+    title: String, 
+    logo: String,  
     catalogueId: { type: Schema.Types.ObjectId, ref: 'Catalogue' }
   },
   {

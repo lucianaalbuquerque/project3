@@ -39,6 +39,12 @@ app.use("/api", isAuthenticated, catalogueRoutes);
 const firstpageRoutes = require("./routes/firstpage.route");
 app.use("/api", isAuthenticated, firstpageRoutes);
 
+const secondpageRoutes = require("./routes/secondpage.route");
+app.use("/api", isAuthenticated, secondpageRoutes);
+
+const lastpageRoutes = require("./routes/lastpage.route");
+app.use("/api", isAuthenticated, lastpageRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
