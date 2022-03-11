@@ -1,12 +1,12 @@
 const router = require("express").Router();
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
  
 const Stockist = require('../models/Stockist.model');
  
 router.post('/stockist', (req, res, next) => {
-  const { title, description, commission } = req.body;
+  const { name, description, commission } = req.body;
  
-  Stockist.create({ title, description, commission })
+  Stockist.create({ name, description, commission })
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });
@@ -38,7 +38,7 @@ router.get('/stockist', (req, res, next) => {
         return;
       }
       Stockist.findByIdAndDelete(stockistId)
-      .then(() => res.json({ message: `Project with ${projectId} was removed successfully` }))
+      .then(() => res.json({ message: `Stockist with ${stockistId} was removed successfully` }))
       .catch((err) => res.json(err))
   })
 

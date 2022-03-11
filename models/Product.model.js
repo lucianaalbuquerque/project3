@@ -9,7 +9,8 @@ const productSchema = new Schema(
     },
     description: String,
     price: Number,
-    images: []
+    imageUrl: String,
+    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

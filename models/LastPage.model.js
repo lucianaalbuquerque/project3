@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 
-const pageSchema = new Schema(
+const lastPageSchema = new Schema(
   {
-    pageNumber: Number,
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    commission: Number, //stockist.commission
     catalogueId: { type: Schema.Types.ObjectId, ref: 'Catalogue' }
   },
   {
@@ -11,6 +11,6 @@ const pageSchema = new Schema(
   }
 );
 
-const Page = model("Page", pageSchema);
+const LastPage = model("LastPage", lastPageSchema);
 
-module.exports = Page;
+module.exports = LastPage;

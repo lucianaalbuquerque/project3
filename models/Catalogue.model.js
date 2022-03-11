@@ -2,18 +2,17 @@ const { Schema, model } = require("mongoose");
 
 const catalogueSchema = new Schema(
   {
-    name: {
-      type: String,
-      // unique: true -> Ideally, should be unique, but its up to you
-    },
-    description: String,
-    pages: [{ type: Schema.Types.ObjectId, ref: 'Pages' }]
+    name: String,
+    cover: { type: Schema.Types.ObjectId, ref: 'FirstPage' },
+    about: { type: Schema.Types.ObjectId, ref: 'SecondPage' },
+    pages: [{ type: Schema.Types.ObjectId, ref: 'Page' }],
+    report: { type: Schema.Types.ObjectId, ref: 'LastPage' }
   },
   {
     timestamps: true,
   }
 );
 
-const Stockist = model("Stockist", stockistSchema);
+const Catalogue = model("Catalogue", catalogueSchema);
 
-module.exports = Stockist;
+module.exports = Catalogue;
