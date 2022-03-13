@@ -12,12 +12,12 @@ router.post('/catalogue', (req,res,next) => {
 })
 
 router.get('/catalogues', (req,res,next) => {
-    const {_id} = req.payload 
-    console.log('catalogueID:', _id) 
-    /* const _id = '622a4e66e09d15972079812a' (do user)*/
-
-    Catalogue.findOne({_id})
-    .then(response => res.json(response))
+    /* const user = req.payload._id 
+    Catalogue.findOne({user}) */
+    Catalogue.find()
+    .then(response =>{
+        console.log(response.data)
+       res.json(response)})
     .catch(err => res.json(err));
 })
 

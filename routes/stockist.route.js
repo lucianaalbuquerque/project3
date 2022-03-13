@@ -11,7 +11,7 @@ router.post('/stockist', (req, res, next) => {
     .catch(err => res.json(err));
 });
 
-router.get('/stockist', (req, res, next) => {
+router.get('/stockists', (req, res, next) => {
     Stockist.find()
       .then(response => res.json(response))
       .catch(err => res.json(err));

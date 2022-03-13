@@ -4,13 +4,14 @@ const mongoose = require('mongoose');
 const FirstPage = require('../models/FirstPage.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.post('/:catalogueId/firstpage', (req,res,next) => {
+router.post('/:catalogueId/cover', (req,res,next) => {
     const { catalogueId } = req.params
     const user = req.payload
 
-    FirstPage.create({ image:'https://www.pngmagic.com/product_images/Rose-White-solid-color-background.jpg', title: user.name, logo: user.logo, catalogueId}) 
+    FirstPage.create({ image:'www.whatever.com', title: user.name, logo: user.logo, catalogueId}) 
     //colocar image e logo vazios no model (default) Img ja esta mas logo to na duvida...
     .then((newPage) => {
+      console.log('user.name is', user.name)
         return Catalogue.findByIdAndUpdate(catalogueId, { cover: newPage._id }) 
     })
     .then(response => res.json(response))

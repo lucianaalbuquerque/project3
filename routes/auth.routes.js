@@ -1,22 +1,16 @@
 const router = require("express").Router();
 
-// ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
-// How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
-// Require the User model in order to interact with the database
 const User = require("../models/User.model");
 
 // Require necessary middleware in order to control access to specific routes
 const { isAuthenticated } = require('./../middleware/jwt.middleware.js');
 
-/* router.get("/loggedin", (req, res) => {
-  res.json(req.user);
-}); */
 
 router.post("/signup", (req, res) => {
   const { email, password, name } = req.body;
@@ -75,18 +69,15 @@ router.post("/signup", (req, res) => {
 router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
  
-  // Check if email or password are provided as empty string 
   if (email === '' || password === '') {
     res.status(400).json({ message: "Provide email and password." });
     return;
   }
  
-  // Check the users collection if a user with the same email exists
+  
   User.findOne({ email })
     .then((foundUser) => {
-    
-      if (!foundUser) {
-        // If the user is not found, send an error response
+      if (!foundUser) {   
         res.status(401).json({ message: "User not found." })
         return;
       }
@@ -119,12 +110,8 @@ router.post('/login', (req, res, next) => {
     .catch(err => res.status(500).json({ message: "Internal Server Error" }));
 });
 
-router.get('/verify', isAuthenticated, (req, res, next) => { 
- 
-  // If JWT token is valid the payload gets decoded by the isAuthenticated middleware and made available on `req.payload`
+router.get('/verify', isAuthenticated, (req, res, next) => {  
   console.log(`req.payload`, req.payload);
- 
-  // Send back the object with user data previously set as the token payload
   res.status(200).json(req.payload);
 });
 

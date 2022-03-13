@@ -32,7 +32,7 @@ router.post('/product', (req, res, next) => {
     .catch(err => res.json(err));
 });
 
-router.get('/product', (req, res, next) => {
+router.get('/products', (req, res, next) => {
     Product.find()
       .then(response => res.json(response))
       .catch(err => res.json(err));
