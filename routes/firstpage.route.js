@@ -8,10 +8,8 @@ router.post('/:catalogueId/cover', (req,res,next) => {
     const { catalogueId } = req.params
     const user = req.payload
 
-    FirstPage.create({ image:'www.whatever.com', title: user.name, logo: user.logo, catalogueId}) 
-    //colocar image e logo vazios no model (default) Img ja esta mas logo to na duvida...
+    FirstPage.create( {catalogueId}) //{ image:'https://unsplash.com/', title: user.name, logo: user.logo,
     .then((newPage) => {
-      console.log('user.name is', user.name)
         return Catalogue.findByIdAndUpdate(catalogueId, { cover: newPage._id }) 
     })
     .then(response => res.json(response))

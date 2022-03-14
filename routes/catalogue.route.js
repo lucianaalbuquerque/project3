@@ -2,19 +2,20 @@ const router = require("express").Router();
 const mongoose = require('mongoose');
 
 const Catalogue = require('../models/Catalogue.model')
+const FirstPage = require('../models/FirstPage.model')
 
-router.post('/catalogue', (req,res,next) => {
-    /* const {name, description, cover, about, pages, report} = req.body */
+router.get('/catalogue', (req,res,next) => {
+  const user = req.payload._id 
 
-    Catalogue.create({name: '', cover: null, about: null, pages: [], report: null})
+  Catalogue.create({user})
     .then(response => res.json(response))
     .catch(err => res.json(err));
 })
 
 router.get('/catalogues', (req,res,next) => {
-    /* const user = req.payload._id 
-    Catalogue.findOne({user}) */
-    Catalogue.find()
+     const user = req.payload._id 
+
+    Catalogue.find({user})
     .then(response =>{
         console.log(response.data)
        res.json(response)})
@@ -30,7 +31,10 @@ router.get('/catalogue/:catalogueId', (req,res,next) => {
     }
 
     Catalogue.findById(catalogueId)
-    .then(response => res.json(response))
+    .populate('cover')
+    .then(response => {
+      res.json(response)
+    })
     .catch(err => res.json(err));
 })
 
