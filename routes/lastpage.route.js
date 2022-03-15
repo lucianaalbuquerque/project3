@@ -4,18 +4,18 @@ const mongoose = require('mongoose');
 const LastPage = require('../models/LastPage.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.post('/:catalogueId/lastpage', (req,res,next) => {
+router.get('/lastpage/:catalogueId', (req,res,next) => {
     const { catalogueId } = req.params
 
-    LastPage.create({products: [], stockistId: null, catalogueId})
+    LastPage.create({ catalogueId })
     .then((newPage) => {
         return Catalogue.findByIdAndUpdate(catalogueId, { report: newPage._id }) 
     })
-    .then(response => res.json(response))
+    .then((response) => res.json(response))
     .catch(err => res.json(err));
 })
 
-router.get('/lastpage/:pageId', (req,res,next) => { //posso usar /page mesmo?
+router.get('/report/:pageId', (req,res,next) => { 
     const { pageId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
@@ -28,7 +28,7 @@ router.get('/lastpage/:pageId', (req,res,next) => { //posso usar /page mesmo?
     .catch(err => res.json(err));
 })
 
-router.put('/lastpage/:pageId', (req,res,next) => {
+router.put('/report/:pageId', (req,res,next) => {
     const { pageId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
@@ -41,7 +41,7 @@ router.put('/lastpage/:pageId', (req,res,next) => {
     .catch((err) => res.json(err))
 })
 
-router.delete('/lastpage/:pageId', (req,res,next) => {
+router.delete('/report/:pageId', (req,res,next) => {
     const {pageId} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
