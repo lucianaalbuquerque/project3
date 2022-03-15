@@ -16,6 +16,14 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    description: {
+      type: String,
+      default: 'Describe your brand here'
+    },
+    logoUrl: {
+      type: String,
+      default: 'https://centralinaaging.org/wp-content/uploads/2021/03/Your-Logo-here.png'
+    }
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

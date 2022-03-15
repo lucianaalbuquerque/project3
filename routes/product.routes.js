@@ -35,14 +35,21 @@ router.get('/products', (req, res, next) => {
       .then(response => res.json(response))
       .catch(err => res.json(err));
   });
- 
-  router.put('/product/:productId', (req,res,next) => {
-      const { productId } = req.params;
 
-      if (!mongoose.Types.ObjectId.isValid(productId)) {
-        res.status(400).json({ message: 'Specified Id is not valid' });
-        return;
-      }
+  router.get('/product/:productId', (req, res, next) => {
+    const {productId} = req.params
+    Product.findById(productId)
+      .then(response => res.json(response))
+      .catch(err => res.json(err));
+  });
+ 
+router.put('/product/:productId', (req,res,next) => {
+    const { productId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      res.status(400).json({ message: 'Specified Id is not valid' });
+      return;
+    }
 
       Product.findByIdAndUpdate(productId, req.body, {new: true})
       .then((response) => res.json(response))
