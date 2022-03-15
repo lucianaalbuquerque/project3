@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const FirstPage = require('../models/FirstPage.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.post('/:catalogueId/cover', (req,res,next) => {
+router.get('/:catalogueId/cover', (req,res,next) => {
     const { catalogueId } = req.params
     const user = req.payload
 
@@ -16,7 +16,7 @@ router.post('/:catalogueId/cover', (req,res,next) => {
     .catch(err => res.json(err));
 })
 
-router.get('/firstpage/:pageId', (req,res,next) => { //posso usar /page mesmo?
+router.get('/cover/:pageId', (req,res,next) => { 
     const { pageId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
@@ -29,7 +29,7 @@ router.get('/firstpage/:pageId', (req,res,next) => { //posso usar /page mesmo?
     .catch(err => res.json(err));
 })
 
-router.put('/firstpage/:pageId', (req,res,next) => {
+router.put('/cover/:pageId', (req,res,next) => {
     const { pageId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
@@ -42,7 +42,7 @@ router.put('/firstpage/:pageId', (req,res,next) => {
     .catch((err) => res.json(err))
 })
 
-router.delete('/firstpage/:pageId', (req,res,next) => {
+router.delete('/cover/:pageId', (req,res,next) => {
     const {pageId} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {

@@ -4,11 +4,10 @@ const mongoose = require('mongoose');
 const Page = require('../models/Page.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.post('/:catalogueId/page', (req,res,next) => {
-    const {pageNumber, products} = req.body
+router.get('/addpage/:catalogueId', (req,res,next) => {
     const { catalogueId } = req.params
 
-    Page.create({pageNumber, products, catalogueId})
+    Page.create({ catalogueId })
     .then((newPage) => {
         return Catalogue.findByIdAndUpdate(catalogueId, { $push: { pages: newPage._id } }) 
     })

@@ -16,19 +16,27 @@ router.get('/stockists', (req, res, next) => {
       .then(response => res.json(response))
       .catch(err => res.json(err));
   });
+
+  router.get('/stockist/:stockistId', (req, res, next) => {
+    const {stockistId} = req.params
+    
+    Stockist.findById()
+      .then(response => res.json(response))
+      .catch(err => res.json(err));
+  });
  
-  router.put('/stockist/:stockistId', (req,res,next) => {
-      const { stockistId } = req.params;
+router.put('/stockist/:stockistId', (req,res,next) => {
+  const { stockistId } = req.params;
 
-      if (!mongoose.Types.ObjectId.isValid(stockistId)) {
-        res.status(400).json({ message: 'Specified Id is not valid' });
-        return;
-      }
+  if (!mongoose.Types.ObjectId.isValid(stockistId)) {
+    res.status(400).json({ message: 'Specified Id is not valid' });
+    return;
+  }
 
-      Stockist.findByIdAndUpdate(stockistId, req.body, {new: true})
-      .then((response) => res.json(response))
-      .catch((err) => res.json(err))
-  })
+  Stockist.findByIdAndUpdate(stockistId, req.body, {new: true})
+  .then((response) => res.json(response))
+  .catch((err) => res.json(err))
+})
 
   router.delete('/stockist/:stockistId', (req,res,next) => {
       const {stockistId} = req.params;
