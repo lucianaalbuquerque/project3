@@ -9,7 +9,8 @@ router.get('/lastpage/:catalogueId', (req,res,next) => {
 
     LastPage.create({ catalogueId })
     .then((newPage) => {
-        return Catalogue.findByIdAndUpdate(catalogueId, { report: newPage._id }) 
+        Catalogue.findByIdAndUpdate(catalogueId, { report: newPage._id }) 
+        return newPage;
     })
     .then((response) => res.json(response))
     .catch(err => res.json(err));

@@ -10,7 +10,8 @@ router.get('/:catalogueId/cover', (req,res,next) => {
 
     FirstPage.create( {catalogueId}) //{ image:'https://unsplash.com/', title: user.name, logo: user.logo,
     .then((newPage) => {
-        return Catalogue.findByIdAndUpdate(catalogueId, { cover: newPage._id }) 
+        Catalogue.findByIdAndUpdate(catalogueId, { cover: newPage._id }) 
+        return newPage;
     })
     .then(response => res.json(response))
     .catch(err => res.json(err));

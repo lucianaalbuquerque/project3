@@ -9,11 +9,12 @@ router.get('/addpage/:catalogueId', (req,res,next) => {
 
     Page.create({ catalogueId })
     .then((newPage) => {
-        return Catalogue.findByIdAndUpdate(catalogueId, { $push: { pages: newPage._id } }, { new: true }) 
+        Catalogue.findByIdAndUpdate(catalogueId, { $push: { pages: newPage._id } }, { new: true })
+        return newPage;
     })
-    .then((response) =>{
-      console.log('response on server to create a page:', response)
-      res.json(response)})
+    .then((response) => {
+      res.json(response)
+    })
     .catch(err => res.json(err));
 })
 

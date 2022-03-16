@@ -13,7 +13,10 @@ const storage = new CloudinaryStorage({
   params: {
     allowed_formats: ["jpg", "png"],
     folder: "project3-gallery" // The name of the folder in cloudinary
-  }
+  }, // NEW
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }, // NEW
 });
  
 module.exports = multer({ storage });

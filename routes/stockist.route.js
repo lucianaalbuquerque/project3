@@ -20,7 +20,7 @@ router.get('/stockists', (req, res, next) => {
   router.get('/stockist/:stockistId', (req, res, next) => {
     const {stockistId} = req.params
     
-    Stockist.findById()
+    Stockist.findById(stockistId)
       .then(response => res.json(response))
       .catch(err => res.json(err));
   });
