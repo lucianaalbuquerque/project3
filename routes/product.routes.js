@@ -27,11 +27,11 @@ router.post('/product', (req, res, next) => {
 
 router.put('/addproduct/:pageId', async (req,res,next) => {
   const { pageId } = req.params
-  const { value } = req.body
+  const { value, catalogueId } = req.body
   
   try {
-    const response = await Page.findByIdAndUpdate(pageId, { $push: { products: value } }, { new: true })
-   /*  await Catalogue.findByIdAndUpdate(catalogueId, { $push: { products: value } }, { new: true }) */
+    const response = await Page.findByIdAndUpdate(pageId, { $push: { products: value._id } }, { new: true })
+    await Catalogue.findByIdAndUpdate(catalogueId, { $push: { products: value._id } }, { new: true })
     res.status(200).json(response);
   } catch (error) {
     res.json(error)
