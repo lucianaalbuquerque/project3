@@ -4,18 +4,15 @@ const mongoose = require('mongoose');
 const Page = require('../models/Page.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.get('/addpage/:catalogueId', (req,res,next) => {
-    const { catalogueId } = req.params
-
-    Page.create({ catalogueId })
-    .then((newPage) => {
-        Catalogue.findByIdAndUpdate(catalogueId, { $push: { pages: newPage._id } }, { new: true })
-        return newPage;
-    })
-    .then((response) => {
-      res.json(response)
-    })
-    .catch(err => res.json(err));
+router.get('/addpage/:catalogueId', async (req,res,next) => {
+  const { catalogueId } = req.params
+  try {
+    const response = await Page.create({ catalogueId })
+    await Catalogue.findByIdAndUpdate(catalogueId, { $push: { pages: response } }, { new: true })
+    res.status(200).json(response);
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 router.get('/page/:pageId', (req,res,next) => {

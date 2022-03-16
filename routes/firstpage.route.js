@@ -4,17 +4,15 @@ const mongoose = require('mongoose');
 const FirstPage = require('../models/FirstPage.model');
 const Catalogue = require('../models/Catalogue.model')
 
-router.get('/:catalogueId/cover', (req,res,next) => {
-    const { catalogueId } = req.params
-    const user = req.payload
-
-    FirstPage.create( {catalogueId}) //{ image:'https://unsplash.com/', title: user.name, logo: user.logo,
-    .then((newPage) => {
-        Catalogue.findByIdAndUpdate(catalogueId, { cover: newPage._id }) 
-        return newPage;
-    })
-    .then(response => res.json(response))
-    .catch(err => res.json(err));
+router.get('/:catalogueId/cover', async (req,res,next) => {
+  const { catalogueId } = req.params
+  try {
+    const response = await FirstPage.create({ catalogueId })
+    await Catalogue.findByIdAndUpdate(catalogueId, { cover: response }, { new: true })
+    res.status(200).json(response);
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 router.get('/cover/:pageId', (req,res,next) => { 

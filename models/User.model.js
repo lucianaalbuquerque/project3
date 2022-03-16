@@ -22,7 +22,6 @@ const userSchema = new Schema(
     },
     logoUrl: {
       type: String,
-      default: 'https://centralinaaging.org/wp-content/uploads/2021/03/Your-Logo-here.png'
     }
   },
   {

@@ -17,16 +17,6 @@ router.post("/upload", fileUploader.single("file"), (req, res, next) => {
   res.json({ fileUrl: req.file.path });
 });
 
-/* router.post("/upload", fileUploader.single("imageUrl"), (req, res, next) => {
-  console.log("file is: ", req.file)
- 
-  if (!req.file) {
-    next(new Error("No file uploaded!"));
-    return;
-  }
-  res.json({ fileUrl: req.file.path });
-}); */
-
 router.post('/product', (req, res, next) => {
   const { name, description, price, imageUrl } = req.body;
  
@@ -35,21 +25,17 @@ router.post('/product', (req, res, next) => {
     .catch(err => res.json(err));
 });
 
-router.post('/addproduct/:pageId', (req,res,next) => {
+router.put('/addproduct/:pageId', async (req,res,next) => {
   const { pageId } = req.params
-  const { productId } = req.body
-
-  Product.findById(productId)
-  .then((productFound) => {
-      return Page.findByIdAndUpdate(pageId, { $push: { products: productFound._id } }, { new: true }) 
-  })
-  .then((productFound) => {
-    return Catalogue.findByIdAndUpdate(catalogueId, { $push: { products: productFound._id } }, { new: true }) 
-  })
-  .then((response) =>{
-    console.log('response on server to create a product in page:', response)
-    res.json(response)})
-  .catch(err => res.json(err));
+  const { value } = req.body
+  
+  try {
+    const response = await Page.findByIdAndUpdate(pageId, { $push: { products: value } }, { new: true })
+   /*  await Catalogue.findByIdAndUpdate(catalogueId, { $push: { products: value } }, { new: true }) */
+    res.status(200).json(response);
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 router.get('/products', (req, res, next) => {
@@ -90,4 +76,4 @@ router.put('/product/:productId', (req,res,next) => {
       .catch((err) => res.json(err))
   })
 
-module.exports = router;
+module.exports = router; 

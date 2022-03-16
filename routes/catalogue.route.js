@@ -31,6 +31,9 @@ router.get('/catalogue/:catalogueId', (req,res,next) => {
     }
 
     Catalogue.findById(catalogueId)
+    .populate('cover')
+    .populate('pages')
+    .populate('report')
     .then(response => {
       res.json(response)
     })
