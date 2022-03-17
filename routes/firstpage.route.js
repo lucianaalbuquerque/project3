@@ -24,6 +24,7 @@ router.get('/cover/:pageId', (req,res,next) => {
     }
 
     FirstPage.findById(pageId)
+    .populate('catalogueId')
     .then(response => res.json(response))
     .catch(err => res.json(err));
 })
