@@ -18,9 +18,9 @@ router.post("/upload", fileUploader.single("file"), (req, res, next) => {
 });
 
 router.post('/product', (req, res, next) => {
-  const { name, description, price, costPrice, ref, imageUrl } = req.body;
+  const { name, description, price, ref, imageUrl } = req.body;
  
-  Product.create({ name, description, price, costPrice, ref, imageUrl })
+  Product.create({ name, description, price, ref, imageUrl })
     .then(response => res.json(response))
     .catch(err => res.json(err));
 });

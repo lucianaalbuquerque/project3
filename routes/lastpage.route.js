@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const LastPage = require('../models/LastPage.model');
 const Catalogue = require('../models/Catalogue.model')
 
+//Create a report in the catalogue
+
 router.get('/lastpage/:catalogueId', async (req,res,next) => {
   const { catalogueId } = req.params
   try {
@@ -15,7 +17,9 @@ router.get('/lastpage/:catalogueId', async (req,res,next) => {
   }
 })
 
-router.get('/report/:pageId', (req,res,next) => { 
+// get products inside the catalogue
+
+router.get('/:catalogueId/report/:pageId', (req,res,next) => { 
     const { pageId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(pageId)) {
@@ -26,6 +30,24 @@ router.get('/report/:pageId', (req,res,next) => {
     LastPage.findById(pageId)
     .then(response => res.json(response))
     .catch(err => res.json(err));
+})
+
+//Get all the products inside a catalogue
+router.get('/catalogue-products/:catalogueId', (req,res,next) => {
+  const { catalogueId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(catalogueId)) {
+    res.status(400).json({ message: 'Specified Id is not valid' });
+    return;
+  }
+
+  Catalogue.findById(catalogueId)
+  .populate('products')
+  .then(response => {
+    res.json(response)
+    console.log('response to products catalogue:', response)
+  })
+  .catch(err => res.json(err));
 })
 
 router.put('/report/:pageId', (req,res,next) => {

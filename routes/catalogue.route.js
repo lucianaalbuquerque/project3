@@ -40,6 +40,7 @@ router.get('/catalogue/:catalogueId', (req,res,next) => {
     .catch(err => res.json(err));
 })
 
+
 router.put('/catalogue/:catalogueId', (req,res,next) => {
     const { catalogueId } = req.params;
 
@@ -49,7 +50,8 @@ router.put('/catalogue/:catalogueId', (req,res,next) => {
     }
 
     Catalogue.findByIdAndUpdate(catalogueId, req.body, {new: true})
-    .then((response) => res.json(response))
+    .then((response) => {
+      res.json(response)})
     .catch((err) => res.json(err))
 })
 

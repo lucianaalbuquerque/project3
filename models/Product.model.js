@@ -9,7 +9,6 @@ const productSchema = new Schema(
     },
     ref: Number,
     description: String,
-    costPrice: Number,
     price: Number,
     imageUrl: String,
   },
