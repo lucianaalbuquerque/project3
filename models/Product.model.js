@@ -7,10 +7,11 @@ const productSchema = new Schema(
       unique: true,
       required: true
     },
+    ref: Number,
     description: String,
+    costPrice: Number,
     price: Number,
     imageUrl: String,
-    
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
